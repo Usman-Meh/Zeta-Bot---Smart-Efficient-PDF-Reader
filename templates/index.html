@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeta Bot</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        // Function to capitalize only the first letter of the first word
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        // Function to display words one by one with the first word capitalized
+        function displayWords(words) {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '';
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < words.length) {
+                    if (i === 0) {
+                        words[i] = capitalizeFirstLetter(words[i]);
+                    }
+                    outputDiv.innerHTML += words[i] + ' ';
+                    outputDiv.scrollTop = outputDiv.scrollHeight;  // Auto-scroll
+                    i++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 100); // Display each word every 100ms
+        }
+
+        // Auto-display response text on page load, if any
+        window.onload = function () {
+            const responseText = "{{ ' '.join(answer.split(' ')) if answer else '' }}";
+            if (responseText) {
+                const words = responseText.split(' ');
+                displayWords(words);
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Full-width header -->
+    <header>
+        <h1>Zeta Bot</h1>
+    </header>
+
+    <main>
+        <form action="/uploader" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="application/pdf" required>
+            <input type="submit" value="Upload">
+        </form>
+
+        {% if pdf_text %}
+            <h2>Extracted Text from PDF:</h2>
+            <pre>{{ pdf_text }}</pre>
+
+            <h3>Enter your query:</h3>
+            <form action="/query" method="POST">
+                <input type="hidden" name="pdf_content" value="{{ pdf_text }}">
+                <input type="text" name="query" required>
+                <input type="submit" value="Submit Query">
+            </form>
+        {% endif %}
+
+        {% if answer %}
+            <h3>Response:</h3>
+            <div class="response-box">{{ answer|safe }}</div>
+        {% endif %}
+    </main>
+
+    <!-- Full-width footer -->
+    <footer>
+        <p>&copy; 2024 PDF Chatbot Reader</p>
+    </footer>
+</body>
+</html>

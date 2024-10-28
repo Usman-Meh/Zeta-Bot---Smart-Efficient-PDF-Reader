@@ -1,0 +1,87 @@
+/* Overall page styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5dc; /* Beige background for a warm look */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+/* Full-width header */
+header {
+    background-color: #5a2703; /* Dark brown */
+    color: white;
+    text-align: center;
+    padding: 0px 0;
+    width: 100%;
+}
+
+/* Main section styling */
+main {
+    flex-grow: 1;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* File input styling */
+input[type="file"],
+input[type="submit"],
+input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #692e04; /* Dark brown border */
+}
+
+input[type="file"],
+input[type="submit"] {
+    display: block;
+    margin-top: 10px;
+    background-color: #7a3503; /* Chocolate color for buttons */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #8b4513; /* Dark brown hover effect */
+}
+
+/* Extracted text and response styling */
+pre {
+    background-color: #f5deb3; /* Wheat color for extracted text box */
+    padding: 15px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Response box styling */
+.response-box {
+    background-color: #f5deb3; /* Wheat color for response box */
+    padding: 10px; /* Reduced padding */
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 1.2; /* Reduced line spacing for tighter text */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #984306; /* Dark brown border for chat box effect */
+}
+
+/* Full-width footer */
+footer {
+    background-color: #522402; /* Dark brown */
+    color: white;
+    text-align: center;
+    padding: 0px 0;
+    width: 100%;
+}

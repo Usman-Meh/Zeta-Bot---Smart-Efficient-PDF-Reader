@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF and Check API</title>
+</head>
+<body>
+    <h1>Upload a PDF file</h1>
+    <form action="/uploader" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="application/pdf" required>
+        <input type="submit" value="Upload">
+    </form>
+
+    <h2>Check Gemini API</h2>
+    <form action="/check_api" method="GET">
+        <input type="submit" value="Check API">
+    </form>
+
+    {% if api_result %}
+        <h3>API Check Result:</h3>
+        <p>
+            {% if api_result.is_working %}
+                <strong>API is working correctly!</strong><br>
+                <pre>{{ api_result.response | tojson(indent=2) }}</pre>
+            {% else %}
+                <strong>API returned an error:</strong> {{ api_result.response }}
+            {% endif %}
+        </p>
+    {% endif %}
+</body>
+</html>

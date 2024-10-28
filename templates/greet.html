@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Hello, Usman!</h1>
+    <div id="chatbox">
+        <div id="messages"></div>
+        <input type="text" id="userInput" placeholder="Type a message..." />
+        <button id="sendBtn">Send</button>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#sendBtn').click(function(){
+                const userInput = $('#userInput').val();
+                $('#messages').append('<div>You: ' + userInput + '</div>');
+                
+                // Send the message to the Flask server
+                $.ajax({
+                    url: '/chat',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ message: userInput }),
+                    success: function(data) {
+                        $('#messages').append('<div>Bot: ' + data.response + '</div>');
+                    },
+                    error: function() {
+                        $('#messages').append('<div>Bot: Sorry, something went wrong.</div>');
+                    }
+                });
+
+                // Clear the input
+                $('#userInput').val('');
+            });
+        });
+    </script>
+</body>
+</html>
